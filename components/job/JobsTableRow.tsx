@@ -43,6 +43,7 @@ export function Fila({ candidate, job, onResult }: FilaProps) {
             uuid: candidate.uuid,
             jobId: job.id,
             candidateId: candidate.candidateId,
+            applicationId: candidate.applicationId,
             repoUrl: data.url
         });
     };
