@@ -18,7 +18,11 @@ interface FilaFormData {
 };
 
 export function Fila({ candidate, job, onResult }: FilaProps) {
-    const { control, handleSubmit, formState: { isValid }, reset } = useForm<FilaFormData>();
+    const { control, handleSubmit, formState: { isValid }, reset } = useForm<FilaFormData>({
+        defaultValues: {
+            url: ''
+        }
+    });
 
     const { mutate, isPending } = useMutation({
         mutationFn: (data: ApplyToJobParams) => applyToJob(data),
@@ -46,24 +50,30 @@ export function Fila({ candidate, job, onResult }: FilaProps) {
     return (
         <>
             <TableRow>
-                <TableCell align='left' width='30%'>
+                <TableCell align='left' width='30%' size='small'>
                     <div className='text-gray-700 font-medium text-sm'>
                         {job.title}
                     </div>
                 </TableCell>
-                <TableCell align='center'>
+                <TableCell align='center' size='small'>
                     <div className='text-gray-700 font-medium text-sm' style={{ userSelect: 'none' }}>
                         <Controller
                             name='url'
                             control={control}
-                            rules={{ required: 'Debe ingresar URL de repositorio' }}
+                            rules={{
+                                required: 'Debe ingresar URL de repositorio',
+                                pattern: {
+                                    value: /^https?:\/\/.+\..+/,
+                                    message: 'La URL no es valida'
+                                }
+                            }}
                             render={({ field, fieldState: { error } }) => (
                                 <TextField
                                     {...field}
                                     label='URL de Repositorio'
                                     variant='outlined'
+                                    size='small'
                                     fullWidth
-                                    type='url'
                                     error={!!error}
                                     helperText={error?.message}
                                 />
@@ -71,7 +81,7 @@ export function Fila({ candidate, job, onResult }: FilaProps) {
                         />
                     </div>
                 </TableCell>
-                <TableCell align='right'>
+                <TableCell align='right' size='small'>
                     <div className='flex items-center justify-end text-gray-700 font-medium text-sm'>
                         <Button
                             variant='contained'

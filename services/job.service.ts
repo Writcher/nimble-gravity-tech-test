@@ -8,8 +8,8 @@ export async function getJobList(): Promise<Job[]> {
     });
 
     if (!jobListResponse.ok) {
-        const errorBody = await jobListResponse.text();
-        throw new Error(`API error: ${jobListResponse.status} — ${errorBody}`);
+        const errorBody = await jobListResponse.json();
+        throw new Error(`${jobListResponse.status} — ${errorBody.error}`);
     };
 
     const jobList: Job[] = await jobListResponse.json();

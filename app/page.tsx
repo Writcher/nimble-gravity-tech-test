@@ -10,11 +10,11 @@ export default function Page() {
 
   return (
     <div className='flex flex-col gap-2 w-full h-full'>
-      <div className='flex items-center justify-center'>
+      <div className='flex items-center justify-center h-full'>
         {!candidate ? (
           <CandidateForm setCandidate={setCandidate} />
         ) : (
-          <JobsTable candidate={candidate}/>
+          <JobsTable candidate={candidate} setCandidate={setCandidate} />
         )}
       </div>
     </div>

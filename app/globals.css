@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+  .outer-table-container .MuiTableHead-root .MuiTableCell-root {
+    z-index: 1100 !important;
+  }
+  
+  .inner-table-container .MuiTableHead-root .MuiTableCell-root {
+    z-index: 1000 !important;
+  } 

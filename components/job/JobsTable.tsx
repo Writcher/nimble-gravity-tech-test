@@ -1,6 +1,6 @@
 import { getJobList } from '@/services/job.service';
 import { CandidateData } from '@/types/candidate.types';
-import { Snackbar, Table, TableBody, TableContainer } from '@mui/material';
+import { Alert, Button, Snackbar, Table, TableBody, TableContainer } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Encabezado } from './JobsTableHeader';
 import { Esqueleto } from './JobsTableSkeleton';
@@ -9,10 +9,11 @@ import { Fila } from './JobsTableRow';
 import { useEffect, useState } from 'react';
 
 interface JobsTableProps {
-    candidate: CandidateData
+    candidate: CandidateData,
+    setCandidate: React.Dispatch<React.SetStateAction<CandidateData | null>>
 };
 
-export function JobsTable({ candidate }: JobsTableProps) {
+export function JobsTable({ candidate, setCandidate }: JobsTableProps) {
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ['jobs'],
         queryFn: () => getJobList(),
@@ -44,7 +45,7 @@ export function JobsTable({ candidate }: JobsTableProps) {
 
     return (
         <>
-            <div className='flex flex-col justify-between w-full h-full overflow-y-auto'>
+            <div className='flex flex-col justify-between w-[80%] h-[80%] overflow-y-auto'>
                 {isLoading || (data && data.length > 0) ? (
                     <TableContainer>
                         <Table stickyHeader>
@@ -66,13 +67,28 @@ export function JobsTable({ candidate }: JobsTableProps) {
                         No se encontraron puestos
                     </div>
                 )}
+                <Button
+                    variant='contained'
+                    onClick={() => setCandidate(null)}
+                    disableElevation
+                    fullWidth
+                >
+                    Atras
+                </Button>
             </div>
             <Snackbar
                 open={snackbar.open}
                 autoHideDuration={6000}
                 onClose={() => setSnackbar(s => ({ ...s, open: false }))}
-                message={snackbar.message}
-            />
+            >
+                <Alert
+                    severity={snackbar.severity}
+                    variant='filled'
+                    onClose={() => setSnackbar(s => ({ ...s, open: false }))}
+                >
+                    {snackbar.message}
+                </Alert>
+            </Snackbar>
         </>
     )
 };

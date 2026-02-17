@@ -12,8 +12,8 @@ export async function getCandidateDataByEmail(params: GetCandidateDataByEmailPar
     });
 
     if (!candidateResponse.ok) {
-        const errorBody = await candidateResponse.text();
-        throw new Error(`API error: ${candidateResponse.status} — ${errorBody}`);
+        const errorBody = await candidateResponse.json();
+        throw new Error(`${candidateResponse.status} — ${errorBody.error}`);
     };
 
     const candidate: CandidateData = await candidateResponse.json();
@@ -31,7 +31,7 @@ export async function applyToJob(params: ApplyToJobParams): Promise<void> {
     });
 
     if (!applyToJobResponse.ok) {
-        const errorBody = await applyToJobResponse.text();
-        throw new Error(`API error: ${applyToJobResponse.status} — ${errorBody}`);
+        const errorBody = await applyToJobResponse.json();
+        throw new Error(`${applyToJobResponse.status} — ${errorBody.error}`);
     };
 };
