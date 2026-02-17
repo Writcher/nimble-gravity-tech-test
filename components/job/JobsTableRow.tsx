@@ -1,10 +1,9 @@
 import { applyToJob } from '@/services/candidate.service';
 import { ApplyToJobParams, CandidateData } from '@/types/candidate.types';
 import { Job } from '@/types/job.types';
-import { Button, Snackbar, TableCell, TableRow, TextField } from '@mui/material';
+import { Button, TableCell, TableRow, TextField } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
-import SaveAsRoundedIcon from '@mui/icons-material/SaveAsRounded';
 import SyncIcon from '@mui/icons-material/Sync';
 
 interface FilaProps {
