@@ -92,7 +92,7 @@ export function Fila({ candidate, job, onResult }: FilaProps) {
                             disabled={isPending || !isValid}
                             onClick={handleSubmit(onSubmit)}
                         >
-                            {!isPending ? <SaveAsRoundedIcon /> : <SyncIcon className='animate-spin' style={{ animationDirection: 'reverse' }} />}
+                            {!isPending ? 'Submit' : <SyncIcon className='animate-spin' style={{ animationDirection: 'reverse' }} />}
                         </Button>
                     </div>
                 </TableCell>
